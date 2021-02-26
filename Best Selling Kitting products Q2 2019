@@ -1,0 +1,8 @@
+#Best Selling Kitting products Q2 2019
+#This is a query for the best selling kitting made products for Q2 2019
+
+SELECT
+k.sku, k.sku_id, sku_name, sku_status, sku_outsourced_assembly, bom_type, SUM(qty), ob.orders_id, `date_purchased`
+FROM skus k inner join `orders_to_barcodes`ob on k.sku_id = ob.`sku_id` inner join `orders` o on ob.orders_id = o.orders_id
+WHERE k.bom_type IN ('kitted') AND k.sku_outsourced_assembly= 0 AND k.sku_status = 'Working' AND date_purchased BETWEEN '2019-04-01' AND '2019-06-30'
+Group by k.sku
